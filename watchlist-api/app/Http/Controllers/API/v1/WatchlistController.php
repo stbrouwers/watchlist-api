@@ -16,6 +16,7 @@ class WatchlistController extends Controller
         $watchlists = Watchlist::all()->where('is_hidden', false);
 
         return $watchlists;
+        //temp
     }
 
     /**
