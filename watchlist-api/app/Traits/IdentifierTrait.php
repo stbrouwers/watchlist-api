@@ -24,6 +24,5 @@ trait IdentifierTrait {
 
         Identifier::create($data);
         return $uuid;
-        //return Identifier::where('id', $uuid)->first();
     }
 }
