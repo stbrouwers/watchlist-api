@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->boolean('is_private');
             $table->boolean('is_hidden');
-            $table->string('identifier_id')->references('id')->on('identifiers');
-            $table->string('watchlist_id')->references('id')->on('identifiers');
+            $table->uuid('created_by_identifier_id');
+            $table->uuid('watchlist_identifier_id');
             $table->timestamps();
+
+            $table->foreign('created_by_identifier_id')->references('id')->on('identifiers');
+            $table->foreign('watchlist_identifier_id')->references('id')->on('identifiers');
         });
 
         Schema::create('videos',  function (Blueprint $table) {
@@ -29,10 +32,12 @@ return new class extends Migration
             $table->timestamps();
         });;
 
-        Schema::create('watchlist_has_video',  function (Blueprint $table) {
+        Schema::create('video_watchlist',  function (Blueprint $table) {
             $table->foreignId('watchlist_id');
             $table->foreignId('video_id');
-            $table->string('identifier_id')->references('id')->on('identifiers');
+            $table->uuid('created_by_identifier_id');
+
+            $table->foreign('created_by_identifier_id')->references('id')->on('identifiers');
         });;
     }
 

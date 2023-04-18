@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('identifiers', function (Blueprint $table) {
-            $table->string('id', 16)->index()->unique();
+            $table->uuid('id')->index()->unique();
             $table->string('reference');
             $table->boolean('is_watchlist');
             $table->timestamps();
