@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class WatchlistController extends Controller
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.

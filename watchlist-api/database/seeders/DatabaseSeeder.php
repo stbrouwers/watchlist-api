@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             IdentifierSeeder::class,
+            WatchlistSeeder::class,
         ]);
     }
 }

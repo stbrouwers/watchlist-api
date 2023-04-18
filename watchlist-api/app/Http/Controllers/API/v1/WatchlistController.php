@@ -1,17 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Watchlist;
 
-class IdentifierController extends Controller
+class WatchlistController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $watchlists = Watchlist::all()->where('is_hidden', false);
+
+        return $watchlists;
     }
 
     /**

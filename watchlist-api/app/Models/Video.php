@@ -13,7 +13,7 @@ class Video extends Model
         'name', 'url', 'string_id'
     ];
 
-    public function watchlist() {
-
+    public function watchlists() {
+        $this->hasManyThrough(Watchlist::class, 'video_watchlist');
     }
 }
