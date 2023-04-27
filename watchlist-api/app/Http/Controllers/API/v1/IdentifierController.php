@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\IdentifierTrait;
 
 class IdentifierController extends Controller
 {
+    use IdentifierTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +23,7 @@ class IdentifierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->newIdentifier();
     }
 
     /**

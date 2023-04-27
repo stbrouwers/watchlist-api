@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('url');
             $table->string('string_id');
             $table->timestamps();
-        });;
+        });
 
         Schema::create('video_watchlist',  function (Blueprint $table) {
             $table->foreignId('watchlist_id');
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->uuid('created_by_identifier_id');
 
             $table->foreign('created_by_identifier_id')->references('id')->on('identifiers');
-        });;
+        });
     }
 
     /**

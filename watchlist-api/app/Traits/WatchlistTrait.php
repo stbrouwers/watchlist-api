@@ -20,7 +20,7 @@ trait WatchlistTrait {
     public function newWatchlist($name, $private, $hidden, $creator) {
         $watchlistIdentifier = $this->newIdentifier('watchlist', true);
 
-        if($watchlistIdentifier == 'ERR') {return;}
+        if($watchlistIdentifier == 'REFERENCE_VIOLATION' || $watchlistIdentifier == 'REFERENCE_EXISTS') {return;}
 
         $watchlist = Watchlist::create([
             'name' => $name,

@@ -15,20 +15,19 @@ trait IdentifierTrait {
      * @return $this|false|string
      */
 
-    public function newIdentifier($ref, $watchlist) {
+    public function newIdentifier($reference, $watchlist) {
         if(!$watchlist) {
-            if($ref == 'watchlist') {
+            if($reference == 'watchlist') {
                 return 'REFERENCE_VIOLATION';
             }
 
-            if(Identifier::where('reference', $ref)) {
+            if(Identifier::where('reference', $reference)->exists()) {
                 return 'REFERENCE_EXISTS';
             }
         }
 
-
         $uuid = Str::uuid();
-        $data = ['id' => $uuid,'reference' => $ref, 'is_watchlist' => $watchlist];
+        $data = ['id' => $uuid,'reference' => $reference, 'is_watchlist' => $watchlist];
 
         Identifier::create($data);
         return $uuid;
