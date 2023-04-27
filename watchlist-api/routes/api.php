@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\v1'], function() {
     Route::apiResource('watchlists', WatchlistController::class);
+    Route::apiResource('identifiers', IdentifierController::class);
 });
