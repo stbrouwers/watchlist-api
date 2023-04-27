@@ -20,12 +20,10 @@ trait IdentifierTrait {
             if($reference == 'watchlist') {
                 return 'REFERENCE_VIOLATION';
             }
-
             if(Identifier::where('reference', $reference)->exists()) {
                 return 'REFERENCE_EXISTS';
             }
         }
-
         $uuid = Str::uuid();
         $data = ['id' => $uuid,'reference' => $reference, 'is_watchlist' => $watchlist];
 

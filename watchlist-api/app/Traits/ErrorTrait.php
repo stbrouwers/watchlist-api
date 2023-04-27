@@ -12,8 +12,6 @@ trait ErrorTrait {
     //chinese trait
     public function getErrorResponse($model_name, $type) {
         $error = config('errorResponse')[$model_name][$type];
-
-
         return response()->json($error, $error['code']);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Identifier;
 use Illuminate\Http\Request;
 use App\Traits\IdentifierTrait;
 
@@ -23,7 +24,18 @@ class IdentifierController extends Controller
      */
     public function store(Request $request)
     {
-        $this->newIdentifier();
+        if($request->reference === null) {
+            return $this->getErrorResponse('Identifier', 'REFERENCE_NULL');
+        }
+
+        $identifier = $this->newIdentifier($request->reference, false);
+
+        if(strlen($identifier) != 36) {
+            return $this->getErrorResponse('Identifier', $identifier);
+        }
+
+        $identifier = Identifier::find($identifier);
+        return response()->json($identifier);
     }
 
     /**
