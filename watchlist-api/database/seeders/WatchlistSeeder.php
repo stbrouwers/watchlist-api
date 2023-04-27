@@ -20,7 +20,7 @@ class WatchlistSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $count = 10;
+        $count = 100;
         $created_by = Identifier::all()->pluck('id');
         for($i = 0; $i<$count; $i++) {
             $this->newWatchlist($faker->word.$faker->word.' videos', false, false, $faker->randomElement($created_by));

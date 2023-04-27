@@ -16,9 +16,17 @@ trait IdentifierTrait {
      */
 
     public function newIdentifier($ref, $watchlist) {
-        if($ref == 'watchlist' && !$watchlist) {
-            return 'ERR';
+        if(!$watchlist) {
+            if($ref == 'watchlist') {
+                return 'REFERENCE_VIOLATION';
+            }
+
+            if(Identifier::where('reference', $ref)) {
+                return 'REFERENCE_EXISTS';
+            }
         }
+
+
         $uuid = Str::uuid();
         $data = ['id' => $uuid,'reference' => $ref, 'is_watchlist' => $watchlist];
 

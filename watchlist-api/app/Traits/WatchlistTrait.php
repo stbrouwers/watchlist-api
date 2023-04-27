@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Identifier;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -21,12 +22,14 @@ trait WatchlistTrait {
 
         if($watchlistIdentifier == 'ERR') {return;}
 
-        Watchlist::create([
+        $watchlist = Watchlist::create([
             'name' => $name,
             'is_private' => $private,
             'is_hidden' => $hidden,
             'created_by_identifier_id' => $creator,
             'watchlist_identifier_id' => $watchlistIdentifier,
         ]);
+
+        return $watchlist;
     }
 }

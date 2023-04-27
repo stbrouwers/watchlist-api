@@ -10,11 +10,13 @@ class Identifier extends Model
     use HasFactory;
     protected $keyType = 'string';
 
+    protected $table = 'identifiers';
+
     protected $fillable = [
         'id', 'reference', 'is_watchlist'
     ];
 
-    public function watchlist() {
-
+    public function watchlists() {
+            return $this->hasMany(Watchlist::class, 'created_by_identifier_id');
     }
 }

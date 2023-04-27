@@ -14,19 +14,40 @@ class WatchlistController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = empty($request->limit) ? 10 : $request->limit;
+        $offset = empty($request->offset) ? 0 : $request->offset;
 
+        if(!is_numeric($limit)) {
+            return $this->getErrorResponse('Watchlist', 'LIMIT_INVALID');
+        }
+        if($limit > 10 || $limit < 1) {
+            return $this->getErrorResponse('Watchlist', 'LIMIT_VALUE');
+        }
+        if(!is_numeric($offset)) {
+            return $this->getErrorResponse('Watchlist', 'OFFSET_INVALID');
+        }
+        if($offset < 0) {
+            return $this->getErrorResponse('Watchlist', 'OFFSET_VALUE');
+        }
 
+        //if UUID is provided -> validate -> determine type
         if($request->identifier) {
-            $identifier = Identifier::where('id', $request->identifier)->first();
+            $identifier = Identifier::find($request->identifier);
 
             if($identifier === null) {
                 return $this->getErrorResponse('Identifier', 'INVALID');
             }
+            $type = $identifier->is_watchlist ? 'watchlist' : 'created_by';
+
+            $watchlists = Watchlist::where($type.'_identifier_id', $request->identifier)->get();
+            $watchlists->makeHidden(['id', 'created_by_identifier_id']);
+
+            return response()->json($watchlists);
         }
+        $watchlists = Watchlist::where('is_hidden', false)->skip($offset)->take($limit)->get();
+        $watchlists->makeHidden(['id', 'is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
 
-        $watchlists = Watchlist::all()->where('is_hidden', false);
-
-        return $watchlists;
+        return response()->json($watchlists);
     }
 
     /**

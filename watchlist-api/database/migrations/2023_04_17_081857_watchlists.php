@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('watchlists', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->boolean('is_private');
             $table->boolean('is_hidden');
             $table->uuid('created_by_identifier_id');
