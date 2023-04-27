@@ -55,11 +55,29 @@ Start the server
   GET \API\v1\watchlists
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `identifier (UUID)` | `string` | Returns only watchlists that are owned by the UUID (Optional) |
+| Parameter | Type     | Description                | Required        | Default         |
+| :-------- | :------- | :------------------------- | :-------------- | :-------------- |
+| `identifier` | `string (UUID)` | Returns only watchlists that are owned by the identifier |   No   | -     |
+| `limit` | `integer` | The amount of watchlists that that will be returned (min. 1 - max. 10) |   No   | 10 |
+| `offset` | `integer` | The offset of watchlists that that will be returned |   No   | 0 |
 
+<br>
 
+#### Creating a new identifier
+
+```http
+  POST \API\v1\identifiers
+```
+
+| Parameter | Type     | Description                | Required        | Default         |
+| :-------- | :------- | :------------------------- | :-------------- | :-------------- |
+| `reference` | `string` | A public reference (name) given with every resource the identifier will create |   Yes (Must be unique)    | -     |
+
+> **Warning**
+>
+> If the identifier (UUID) is lost, it can not be recovered.
+>
+> Anyone with access to an identifier can manage its resources.
 
 </details>
 
