@@ -71,11 +71,11 @@ Start the server
 
 | Parameter | Type     | Description                | Required        | Default         |
 | :-------- | :------- | :------------------------- | :-------------- | :-------------- |
-| `reference` | `string` | A public reference (name) given with every resource the identifier will create |   Yes (Must be unique)    | -     |
+| `reference` | `string` | A public reference (name) given with every resource the identifier will create/update |   Yes (Must be unique)    | -     |
 
 > **Warning**
 >
-> If the identifier (UUID) is lost, it can not be recovered.
+> If the identifier (UUID) is lost, it can not be recovered through the api itself.
 >
 > Anyone with access to an identifier can manage its resources.
 
