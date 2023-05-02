@@ -24,11 +24,21 @@ return new class extends Migration
             $table->foreign('watchlist_identifier_id')->references('id')->on('identifiers');
         });
 
+        Schema::create('platforms',  function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('base_url');
+            $table->integer('supported_length');
+            $table->string('supported_format');
+            $table->timestamps();
+        });
+
         Schema::create('videos',  function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->string('string_id');
+            $table->longText('note');
+            $table->foreignId('platform_id');
             $table->timestamps();
         });
 

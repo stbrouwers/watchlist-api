@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Video extends Model
+class Platform extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'url', 'note', 'platform_id'
+        'name', 'base_url', 'supported_length', 'supported_format'
     ];
 
-    public function watchlists() {
-        $this->hasManyThrough(Watchlist::class, 'video_watchlist');
-    }
 }

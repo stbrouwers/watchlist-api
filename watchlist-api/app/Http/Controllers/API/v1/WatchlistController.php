@@ -65,7 +65,10 @@ class WatchlistController extends Controller
             return $this->getErrorResponse('Identifier', 'INVALID');
         }
 
-        return $this->newWatchlist($name, $private, $hidden, $identifier->id);
+        $watchlist = $this->newWatchlist($name, $private, $hidden, $identifier->id);
+        $watchlist->makeHidden(['created_by_identifier_id']);
+
+        return response()->json($watchlist);
     }
 
     /**
@@ -91,6 +94,10 @@ class WatchlistController extends Controller
     {
         //
     }
+
+    /**
+     * Autism.
+     */
     public function autism($b) {
         if($b == 'true'|| $b == 1) {
             return true;
