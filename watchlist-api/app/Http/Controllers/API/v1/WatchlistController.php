@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Identifier;
 use Illuminate\Http\Request;
 use App\Models\Watchlist;
+use App\Traits\WatchlistTrait;
 
 class WatchlistController extends Controller
 {
+    use WatchlistTrait;
     /**
      * Display a listing of the resource.
      */
@@ -17,18 +19,11 @@ class WatchlistController extends Controller
         $limit = empty($request->limit) ? 10 : $request->limit;
         $offset = empty($request->offset) ? 0 : $request->offset;
 
-        if(!is_numeric($limit)) {
-            return $this->getErrorResponse('Watchlist', 'LIMIT_INVALID');
-        }
-        if($limit > 10 || $limit < 1) {
-            return $this->getErrorResponse('Watchlist', 'LIMIT_VALUE');
-        }
-        if(!is_numeric($offset)) {
-            return $this->getErrorResponse('Watchlist', 'OFFSET_INVALID');
-        }
-        if($offset < 0) {
-            return $this->getErrorResponse('Watchlist', 'OFFSET_VALUE');
-        }
+        if(!is_numeric($limit)) {return $this->getErrorResponse('Watchlist', 'LIMIT_INVALID');}
+        if($limit > 10 || $limit < 1) {return $this->getErrorResponse('Watchlist', 'LIMIT_VALUE');}
+
+        if(!is_numeric($offset)) {return $this->getErrorResponse('Watchlist', 'OFFSET_INVALID');}
+        if($offset < 0) {return $this->getErrorResponse('Watchlist', 'OFFSET_VALUE');}
 
         //if UUID is provided -> validate -> determine type
         if($request->identifier) {
@@ -55,7 +50,22 @@ class WatchlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = $request->name;
+        $private = empty($request->private) ? false : $this->autism($request->private);
+        $hidden = empty($request->hidden) ? false : $this->autism($request->hidden);
+
+        if(empty($name)) {return $this->getErrorResponse('Watchlist', 'NAME_NULL');}
+        if(empty($request->identifier)) {return $this->getErrorResponse('Identifier', 'NULL');}
+
+        if($private === 'kys') {return $this->getErrorResponse('Watchlist', 'PRIVATE_INVALID');}
+        if($hidden === 'kys') {return $this->getErrorResponse('Watchlist', 'HIDDEN_INVALID');}
+
+        $identifier = Identifier::find($request->identifier);
+        if($identifier === null) {
+            return $this->getErrorResponse('Identifier', 'INVALID');
+        }
+
+        return $this->newWatchlist($name, $private, $hidden, $identifier->id);
     }
 
     /**
@@ -80,5 +90,14 @@ class WatchlistController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function autism($b) {
+        if($b == 'true'|| $b == 1) {
+            return true;
+        }
+        if($b == 'false'|| $b == 0) {
+            return false;
+        }
+        return 'kys';
     }
 }
