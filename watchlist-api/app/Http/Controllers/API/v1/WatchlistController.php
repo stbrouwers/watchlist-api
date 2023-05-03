@@ -7,6 +7,7 @@ use App\Models\Identifier;
 use Illuminate\Http\Request;
 use App\Models\Watchlist;
 use App\Traits\WatchlistTrait;
+use App\Http\Requests\Watchlist\listWatchlistRequest;
 
 class WatchlistController extends Controller
 {
@@ -39,6 +40,11 @@ class WatchlistController extends Controller
                 $watchlist->makeHidden(['created_by_identifier_id', 'watchlist_identifier_id']);
                 $videos = $watchlist->videos()->get();
 
+                foreach($videos as $video) {
+                    $video->reference = $video->pivot->reference;
+                }
+                $videos->makeHidden(['pivot']);
+
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
             $type = $identifier->is_watchlist ? 'watchlist' : 'created_by';
@@ -48,6 +54,10 @@ class WatchlistController extends Controller
             if($type === 'watchlist') {
                 $watchlist = Watchlist::find($watchlists[0]->id);
                 $videos = $watchlist->videos()->get();
+                foreach($videos as $video) {
+                    $video->reference = $video->pivot->reference;
+                }
+                $videos->makeHidden(['pivot']);
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
 
@@ -56,7 +66,7 @@ class WatchlistController extends Controller
             return response()->json($watchlists);
         }
         $watchlists = Watchlist::where('is_hidden', false)->skip($offset)->take($limit)->get();
-            $watchlists->makeHidden(['is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
+        $watchlists->makeHidden(['is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
 
         return response()->json($watchlists);
     }
