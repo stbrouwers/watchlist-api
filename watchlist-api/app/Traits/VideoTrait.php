@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Identifier;
 use App\Models\Platform;
 use App\Models\Video;
 use Illuminate\Support\Facades\Log;
@@ -36,6 +37,6 @@ trait VideoTrait {
     }
 
     public function attachVideo($watchlist, $video, $creator) {
-        $watchlist->videos()->attach([$video->id => ['created_by_identifier_id' => $creator->id]]);
+        $watchlist->videos()->attach([$video->id => ['created_by_identifier_id' => $creator->id, 'reference' => $creator->reference]]);
     }
 }

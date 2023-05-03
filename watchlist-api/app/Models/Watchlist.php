@@ -17,7 +17,8 @@ class Watchlist extends Model
 
     public function videos() {
         return $this->belongsToMany(Video::class)
-        ->withPivot('created_by_identifier_id');
+        ->withPivot('created_by_identifier_id', 'reference');
+
     }
 
     public function createdByIdentifier() {

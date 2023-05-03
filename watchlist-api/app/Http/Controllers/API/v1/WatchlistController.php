@@ -7,6 +7,7 @@ use App\Models\Identifier;
 use Illuminate\Http\Request;
 use App\Models\Watchlist;
 use App\Traits\WatchlistTrait;
+use App\Http\Requests\Watchlist\ListWatchlistRequest;
 
 class WatchlistController extends Controller
 {
@@ -14,16 +15,9 @@ class WatchlistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(ListWatchlistRequest $request)
     {
-        $limit = empty($request->limit) ? 10 : $request->limit;
-        $offset = empty($request->offset) ? 0 : $request->offset;
-
-        if(!is_numeric($limit)) {return $this->getErrorResponse('Watchlist', 'LIMIT_INVALID');}
-        if($limit > 10 || $limit < 1) {return $this->getErrorResponse('Watchlist', 'LIMIT_VALUE');}
-
-        if(!is_numeric($offset)) {return $this->getErrorResponse('Watchlist', 'OFFSET_INVALID');}
-        if($offset < 0) {return $this->getErrorResponse('Watchlist', 'OFFSET_VALUE');}
+        $request->validated();
 
         //get ready for some nesting
         //if UUID is provided -> validate -> determine type
@@ -39,6 +33,11 @@ class WatchlistController extends Controller
                 $watchlist->makeHidden(['created_by_identifier_id', 'watchlist_identifier_id']);
                 $videos = $watchlist->videos()->get();
 
+                foreach($videos as $video) {
+                    $video->reference = $video->pivot->reference;
+                }
+                $videos->makeHidden(['pivot']);
+
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
             $type = $identifier->is_watchlist ? 'watchlist' : 'created_by';
@@ -48,6 +47,10 @@ class WatchlistController extends Controller
             if($type === 'watchlist') {
                 $watchlist = Watchlist::find($watchlists[0]->id);
                 $videos = $watchlist->videos()->get();
+                foreach($videos as $video) {
+                    $video->reference = $video->pivot->reference;
+                }
+                $videos->makeHidden(['pivot']);
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
 
@@ -55,8 +58,8 @@ class WatchlistController extends Controller
 
             return response()->json($watchlists);
         }
-        $watchlists = Watchlist::where('is_hidden', false)->skip($offset)->take($limit)->get();
-            $watchlists->makeHidden(['is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
+        $watchlists = Watchlist::where('is_hidden', false)->skip($request->getOffset())->take($request->getLimit())->get();
+        $watchlists->makeHidden(['is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
 
         return response()->json($watchlists);
     }
