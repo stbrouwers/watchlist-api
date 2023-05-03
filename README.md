@@ -109,7 +109,7 @@ Start the server
 
 > **Warning**
 >
-> If the identifier (UUID) is lost, it can not be recovered through the api itself.
+> If the `personal` identifier (UUID) is lost, it can not be recovered through the api itself.
 >
 > Anyone with access to an identifier can manage its resources.
   
