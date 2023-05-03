@@ -115,6 +115,15 @@
       <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/symfony/dom-crawler" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/symfony/options-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/league/container" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/roach-php/core" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/roach-php/laravel" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/spatie/robots-txt" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/spatie/laravel-package-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/jakeasmith/http_build_url" />
+      <excludeFolder url="file://$MODULE_DIR$/watchlist-api/vendor/masterminds/html5" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

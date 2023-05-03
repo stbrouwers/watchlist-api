@@ -118,6 +118,15 @@
       <path value="$PROJECT_DIR$/watchlist-api/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/watchlist-api/vendor/composer" />
       <path value="$PROJECT_DIR$/watchlist-api/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/league/container" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/roach-php/core" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/roach-php/laravel" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/spatie/robots-txt" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/spatie/laravel-package-tools" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/jakeasmith/http_build_url" />
+      <path value="$PROJECT_DIR$/watchlist-api/vendor/masterminds/html5" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

@@ -90,4 +90,23 @@ return [
         ],
 
     ],
+
+    'Video' => [
+        'URL_SUPPORT' => [
+            'code' => 400,
+            'error_context' => $generic[400],
+            'detail' => 'The media platform is not supported. Please consult the documentation for the supported platforms and/or check for possible spelling errors in your url.'
+        ],
+        'URL_NULL' => [
+            'code' => 400,
+            'error_context' => $generic[400],
+            'detail' => 'The request did not contain a url parameter.'
+        ],
+
+        'NAME_NULL' => [
+            'code' => 400,
+            'error_context' => $generic[400],
+            'detail' => 'The request did not contain a name parameter.',
+        ]
+    ],
 ];

@@ -31,6 +31,7 @@ class VideoController extends Controller
         if($identifier === null) {return $this->getErrorResponse('Identifier', 'INVALID');}
 
         $url = $request->url;
+        $name = $request->name;
 
         if(strlen($request->watchlist) == 36) {
             $watchlist = Watchlist::where('watchlist_identifier_id', $request->watchlist)->get();
@@ -41,7 +42,12 @@ class VideoController extends Controller
         }
         if($watchlist === null) {return $this->getErrorResponse('Watchlist', 'INVALID');}
 
+        $video = $this->newVideo($url, $name);
+        if(empty($video->id)) {return $this->getErrorResponse('Video', $video);}
 
+        $this->attachVideo($watchlist, $video, $identifier);
+
+        return response()->json($video);
     }
 
     /**

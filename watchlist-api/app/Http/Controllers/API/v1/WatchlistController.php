@@ -25,22 +25,38 @@ class WatchlistController extends Controller
         if(!is_numeric($offset)) {return $this->getErrorResponse('Watchlist', 'OFFSET_INVALID');}
         if($offset < 0) {return $this->getErrorResponse('Watchlist', 'OFFSET_VALUE');}
 
+        //get ready for some nesting
         //if UUID is provided -> validate -> determine type
         if($request->identifier) {
             $identifier = Identifier::find($request->identifier);
 
             if($identifier === null) {
-                return $this->getErrorResponse('Identifier', 'INVALID');
+                $watchlist = Watchlist::find($request->identifier);
+
+                if(!is_numeric($request->identifier) || $watchlist === null) {return $this->getErrorResponse('Identifier', 'INVALID');}
+                if($watchlist->is_private && $request->identifier != $watchlist->created_by_identifier_id) {return $this->getErrorResponse('Watchlist', 'PRIVATE_WARNING');}
+
+                $watchlist->makeHidden(['created_by_identifier_id', 'watchlist_identifier_id']);
+                $videos = $watchlist->videos()->get();
+
+                return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
             $type = $identifier->is_watchlist ? 'watchlist' : 'created_by';
-
             $watchlists = Watchlist::where($type.'_identifier_id', $request->identifier)->get();
-            $watchlists->makeHidden(['id', 'created_by_identifier_id']);
+
+            //yep fml
+            if($type === 'watchlist') {
+                $watchlist = Watchlist::find($watchlists[0]->id);
+                $videos = $watchlist->videos()->get();
+                return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
+            }
+
+            $watchlists->makeHidden(['created_by_identifier_id']);
 
             return response()->json($watchlists);
         }
         $watchlists = Watchlist::where('is_hidden', false)->skip($offset)->take($limit)->get();
-        $watchlists->makeHidden(['id', 'is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
+            $watchlists->makeHidden(['is_private', 'is_hidden', 'created_by_identifier_id', 'watchlist_identifier_id']);
 
         return response()->json($watchlists);
     }

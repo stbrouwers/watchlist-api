@@ -10,10 +10,11 @@ class Video extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'url', 'note', 'platform_id'
+        'name', 'url', 'platform_id'
     ];
 
     public function watchlists() {
-        $this->hasManyThrough(Watchlist::class, 'video_watchlist');
+        $this->belongsToMany(Watchlist::class)
+            ->withPivot('created_by_identifier_id');
     }
 }

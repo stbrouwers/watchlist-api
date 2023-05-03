@@ -16,7 +16,8 @@ class Watchlist extends Model
     protected $table = 'watchlists';
 
     public function videos() {
-        return $this->hasManyThrough(Video::class, 'video_watchlist');
+        return $this->belongsToMany(Video::class)
+        ->withPivot('created_by_identifier_id');
     }
 
     public function createdByIdentifier() {
