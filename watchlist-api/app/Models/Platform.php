@@ -13,4 +13,8 @@ class Platform extends Model
         'name', 'base_url', 'supported_length', 'supported_format'
     ];
 
+    public function videos() {
+        $this->hasMany(Video::class);
+    }
+
 }

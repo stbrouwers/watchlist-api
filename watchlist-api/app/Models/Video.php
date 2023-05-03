@@ -17,4 +17,8 @@ class Video extends Model
         $this->belongsToMany(Watchlist::class)
             ->withPivot('created_by_identifier_id');
     }
+
+    public function platform() {
+        $this->hasOne(Platform::class);
+    }
 }
