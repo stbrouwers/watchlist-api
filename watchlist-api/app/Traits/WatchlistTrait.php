@@ -34,4 +34,8 @@ trait WatchlistTrait {
 
         return $watchlist;
     }
+
+    public function updateWatchlist() {
+
+    }
 }

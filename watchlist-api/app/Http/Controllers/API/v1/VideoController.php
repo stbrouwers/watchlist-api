@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Identifier;
+use App\Models\Video;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use App\Traits\VideoTrait;
@@ -70,8 +71,15 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        if($request->identifier === null) {
+            return $this->getErrorResponse('Identifier', 'NULL');
+        }
+        $identifier = Identifier::find($request->identifier);
+        if($identifier === null) {
+            return $this->getErrorResponse('Identifier', 'INVALID');
+        }
+        return response()->json($identifier);
     }
 }

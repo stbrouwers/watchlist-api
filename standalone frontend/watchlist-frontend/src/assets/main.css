@@ -1,11 +1,17 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  font-weight: normal;
+#app {
+  position: absolute;
+  top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
 }
 
 a,
@@ -22,14 +28,10 @@ a,
 }
 
 @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     padding: 0 2rem;
   }
 }
