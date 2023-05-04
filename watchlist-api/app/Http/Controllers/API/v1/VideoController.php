@@ -34,7 +34,7 @@ class VideoController extends Controller
         $name = $request->name;
 
         if(strlen($request->watchlist) == 36) {
-            $watchlist = Watchlist::where('watchlist_identifier_id', $request->watchlist)->get();
+            $watchlist = Watchlist::where('watchlist_identifier_id', $request->watchlist)->first();
         }
         else {
             $watchlist = Watchlist::find($request->watchlist);
@@ -46,6 +46,7 @@ class VideoController extends Controller
         if(empty($video->id)) {return $this->getErrorResponse('Video', $video);}
 
         $this->attachVideo($watchlist, $video, $identifier);
+        $video->makeHidden('id');
 
         return response()->json($video);
     }

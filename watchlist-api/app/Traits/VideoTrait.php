@@ -36,6 +36,8 @@ trait VideoTrait {
     }
 
     public function attachVideo($watchlist, $video, $creator) {
-        $watchlist->videos()->attach([$video->id => ['created_by_identifier_id' => $creator->id]]);
+        $watchlist->videos()->attach([$video->id => ['created_by_identifier_id' => $creator->id, 'reference' => $creator->reference]]);
+        $watchlist->videos_total = $watchlist->videos_total+1;
+        $watchlist->save();
     }
 }

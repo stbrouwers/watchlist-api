@@ -43,7 +43,7 @@ class WatchlistController extends Controller
                 foreach($videos as $video) {
                     $video->reference = $video->pivot->reference;
                 }
-                $videos->makeHidden(['pivot']);
+                $videos->makeHidden(['pivot', 'id']);
 
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
@@ -57,7 +57,8 @@ class WatchlistController extends Controller
                 foreach($videos as $video) {
                     $video->reference = $video->pivot->reference;
                 }
-                $videos->makeHidden(['pivot']);
+                $watchlist->makeHidden(['created_by_identifier_id']);
+                $videos->makeHidden(['pivot', 'id']);
                 return response()->json(array_merge($watchlist->toArray(), ['videos' => $videos]));
             }
 

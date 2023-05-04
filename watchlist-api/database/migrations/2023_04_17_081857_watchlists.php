@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('is_private');
             $table->boolean('is_hidden');
+            $table->string('reference');
             $table->uuid('created_by_identifier_id');
             $table->uuid('watchlist_identifier_id');
+            $table->integer('videos_total');
             $table->timestamps();
 
             $table->foreign('created_by_identifier_id')->references('id')->on('identifiers');
@@ -45,6 +47,7 @@ return new class extends Migration
             $table->foreignId('watchlist_id');
             $table->foreignId('video_id');
             $table->uuid('created_by_identifier_id');
+            $table->string('reference');
 
             $table->foreign('created_by_identifier_id')->references('id')->on('identifiers');
         });
