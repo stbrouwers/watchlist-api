@@ -67,7 +67,7 @@ Start the server
 >
 > You can only obtain the contents of a watchlist by requesting a single one.
 >
-> This is done by passing either the uuid that belongs to a playlist (`watchlist identifier`), or the id of the playlist itself.
+> This is done by passing either the uuid that belongs to a watchlist (`watchlist identifier`), or the id of the watchlist itself.
   
 > **Warning**
 >
