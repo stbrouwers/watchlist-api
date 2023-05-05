@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'recover',
       props: { default: true, recover: true, parameterName: 'identifier' },
       component: RegisterView
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component:  () => import(/* webpackChunkName: "dashboard" */ '../views/DashboardView.vue')
     }
   ]
 })
