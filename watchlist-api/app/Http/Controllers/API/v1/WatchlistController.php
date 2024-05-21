@@ -82,12 +82,12 @@ class WatchlistController extends Controller
         $hidden = empty($request->hidden) ? false : $this->autism($request->hidden);
 
         if(empty($name)) {return $this->getErrorResponse('Watchlist', 'NAME_NULL');}
-        if(empty($request->identifier_)) {return $this->getErrorResponse('Identifier', 'NULL');}
+        if(empty($request->identifier)) {return $this->getErrorResponse('Identifier', 'NULL');}
 
         if($private === 'kys') {return $this->getErrorResponse('Watchlist', 'PRIVATE_INVALID');}
         if($hidden === 'kys') {return $this->getErrorResponse('Watchlist', 'HIDDEN_INVALID');}
 
-        $identifier = Identifier::find($request->identifier_);
+        $identifier = Identifier::find($request->identifier);
         if($identifier === null) {
             return $this->getErrorResponse('Identifier', 'INVALID');
         }
