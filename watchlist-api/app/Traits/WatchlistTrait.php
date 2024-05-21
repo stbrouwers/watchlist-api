@@ -26,10 +26,10 @@ trait WatchlistTrait {
             'name' => $name,
             'is_private' => $private,
             'is_hidden' => $hidden,
-            'reference' => $identifier->reference,
+            'reference' =>  $identifier->reference,
             'created_by_identifier_id' => $creator,
             'watchlist_identifier_id' => $watchlistIdentifier,
-            'videos_total' => 0,
+            'videos_total' => 0
         ]);
 
         return $watchlist;
