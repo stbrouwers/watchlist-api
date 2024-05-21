@@ -63,13 +63,13 @@ Start the server
 | `limit` | `integer` | The amount of watchlists that that will be returned (min. 1 - max. 10) |   No   | 10 |
 | `offset` | `integer` | The offset of watchlists that that will be returned |   No   | 0 |
   
-> **Note**
+> [!NOTE]
 >
 > You can only obtain the contents of a watchlist by requesting a single one.
 >
 > This is done by passing either the uuid that belongs to a watchlist (`watchlist identifier`), or the id of the watchlist itself.
   
-> **Warning**
+> [!IMPORTANT]
 >
 > Privilege is needed in order to request a private watchlist.
 >
@@ -107,7 +107,7 @@ Start the server
 | :-------- | :------- | :------------------------- | :-------------- | :-------------- |
 | `reference` | `string` | A public reference (name) given with every resource the identifier will create/update. |   Yes (Must be unique)    | -     |
 
-> **Warning**
+> [!IMPORTANT]
 >
 > If the `personal` identifier (UUID) is lost, it can not be recovered through the api itself.
 >
