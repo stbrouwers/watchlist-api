@@ -43,7 +43,11 @@ class IdentifierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if($id === null) {return $this->getErrorResponse('Identifier', 'NULL');}
+        $identifier = Identifier::find($id);
+        if(!$identifier) {return $this->getErrorResponse('Identifier', 'INVALID');}
+
+        return $identifier;
     }
 
     /**
